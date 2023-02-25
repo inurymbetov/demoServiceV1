@@ -24,59 +24,59 @@ public class UsersImpl extends Dao<Users> {
     private final DSLContext dsl;
 
     public List<Users> getAll() {
-        return jdbcTemplate.query(dsl.selectFrom("users").getSQL(), this::mapperResult);
+        return jdbcTemplate.query(dsl.selectFrom(Users.TABLE).getSQL(), this::mapperResult);
     }
 
     public Users getById(long id) throws DataAccessException {
-        final String sql = dsl.selectFrom(table("users"))
+        final String sql = dsl.selectFrom(table(Users.TABLE))
                 .where(
-                        field("id").eq(id).and(field("active").eq(true))
+                        field(Users.ID).eq(id).and(field(Users.ACTIVE).eq(true))
                 ).getSQL(ParamType.INLINED);
         return jdbcTemplate.queryForObject(sql, this::mapperResult);
     }
 
     public Optional<Users> getByEmail(String email, boolean active) {
-        final String sql = dsl.selectFrom(table("users"))
+        final String sql = dsl.selectFrom(table(Users.TABLE))
                 .where(
-                        field("email").eq(email).and(field("active").eq(active))
+                        field(Users.EMAIL).eq(email).and(field(Users.ACTIVE).eq(active))
                 ).getSQL(ParamType.INLINED);
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, this::mapperResult));
     }
 
     public Optional<Users> getByUid(String uid) {
-        final String sql = dsl.selectFrom(table("users"))
+        final String sql = dsl.selectFrom(table(Users.TABLE))
                 .where(
-                        field("uid").eq(uid).and(field("active").eq(true))
+                        field(Users.UID).eq(uid).and(field(Users.ACTIVE).eq(true))
                 ).getSQL(ParamType.INLINED);
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, this::mapperResult));
     }
 
     public boolean userExistByEmail(String email, boolean active) {
-        final String sql = dsl.selectFrom(table("users"))
+        final String sql = dsl.selectFrom(table(Users.TABLE))
                 .where(
-                        field("email").eq(email).and(field("active").eq(active))
+                        field(Users.EMAIL).eq(email).and(field(Users.ACTIVE).eq(active))
                 ).getSQL(ParamType.INLINED);
         List<Users> query = jdbcTemplate.query(sql, this::mapperResult);
         return query.size() != 0;
     }
 
     public boolean userExistByUid(String uid) {
-        final String sql = dsl.selectFrom(table("users"))
+        final String sql = dsl.selectFrom(table(Users.TABLE))
                 .where(
-                        field("uid").eq(uid).and(field("active").eq(true))
+                        field(Users.UID).eq(uid).and(field(Users.ACTIVE).eq(true))
                 ).getSQL(ParamType.INLINED);
         List<Users> query = jdbcTemplate.query(sql, this::mapperResult);
         return query.size() != 0;
     }
 
-    public boolean create(Users users) {
-        final String sql = dsl.insertInto(table("users")).columns(
-                field("uid"),
-                field("firstName"),
-                field("lastName"),
-                field("email"),
-                field("password"),
-                field("active")
+    public void create(Users users) {
+        final String sql = dsl.insertInto(table(Users.TABLE)).columns(
+                field(Users.UID),
+                field(Users.FIRST_NAME),
+                field(Users.LAST_NAME),
+                field(Users.EMAIL),
+                field(Users.PASSWORD),
+                field(Users.ACTIVE)
         ).values(
                 users.getUid(),
                 users.getFirstName(),
@@ -85,32 +85,30 @@ public class UsersImpl extends Dao<Users> {
                 users.getPassword(),
                 users.isActive()
         ).getSQL(ParamType.INLINED);
-        int update = jdbcTemplate.update(sql);
-        return update != 0;
+        jdbcTemplate.update(sql);
     }
 
-    public boolean update(Users users) {
-        final String sql = dsl.update(table("users"))
-                .set(field("firstName"), value(users.getFirstName()))
-                .set(field("lastName"), value(users.getLastName()))
-                .set(field("email"), value(users.getEmail()))
-                .set(field("password"), value(users.getPassword()))
-                .where(field("uid").eq(users.getUid()).and(field("active").eq(true)))
+    public void update(Users users) {
+        final String sql = dsl.update(table(Users.TABLE))
+                .set(field(Users.FIRST_NAME), value(users.getFirstName()))
+                .set(field(Users.LAST_NAME), value(users.getLastName()))
+                .set(field(Users.EMAIL), value(users.getEmail()))
+                .set(field(Users.PASSWORD), value(users.getPassword()))
+                .where(field(Users.UID).eq(users.getUid()).and(field(Users.ACTIVE).eq(true)))
                 .getSQL(ParamType.INLINED);
-        int update = jdbcTemplate.update(sql);
-        return update != 0;
+        jdbcTemplate.update(sql);
     }
 
     @Override
     protected Users mapperResult(ResultSet rs, int i) throws SQLException {
         return Users.builder()
-                .id(rs.getLong("id"))
-                .uid(rs.getString("uid"))
-                .firstName(rs.getString("firstName"))
-                .lastName(rs.getString("lastName"))
-                .email(rs.getString("email"))
-                .password(rs.getString("password"))
-                .active(rs.getBoolean("active"))
+                .id(rs.getLong(Users.ID))
+                .uid(rs.getString(Users.UID))
+                .firstName(rs.getString(Users.FIRST_NAME))
+                .lastName(rs.getString(Users.LAST_NAME))
+                .email(rs.getString(Users.EMAIL))
+                .password(rs.getString(Users.PASSWORD))
+                .active(rs.getBoolean(Users.ACTIVE))
                 .build();
     }
 }
