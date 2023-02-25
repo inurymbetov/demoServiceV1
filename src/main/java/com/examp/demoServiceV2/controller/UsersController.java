@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersController {
 
-    private final ServiceInterface<UsersDto> serviceInterface;
+    private final ServiceInterface serviceInterface;
 
     @GetMapping()
     private ResponseEntity<List<UsersDto>> getAll() {
@@ -24,19 +24,19 @@ public class UsersController {
 
     @GetMapping("/{id}")
     private ResponseEntity<UsersDto> getById(@PathVariable long id) {
-        return ResponseEntity.ok(serviceInterface.getById(id));
+        return ResponseEntity.ok((UsersDto) serviceInterface.getById(id));
     }
 
     @PostMapping("/create")
     private ResponseEntity<UsersDto> create(@RequestBody UsersDto dto) {
-        UsersDto body = serviceInterface.create(dto);
+        UsersDto body = (UsersDto) serviceInterface.create(dto);
         URI uri = UriComponentsBuilder.fromPath("/api/v1/users/{id}").buildAndExpand(body.getId()).toUri();
         return ResponseEntity.created(uri).body(body);
     }
 
     @PutMapping("/update")
     private ResponseEntity<UsersDto> update(@RequestBody UsersDto dto) {
-        return ResponseEntity.ok(serviceInterface.update(dto));
+        return ResponseEntity.ok((UsersDto) serviceInterface.update(dto));
     }
 
 }
