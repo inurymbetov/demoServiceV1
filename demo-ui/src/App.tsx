@@ -1,11 +1,15 @@
 import React from 'react';
-import './App.css';
+import "./assets/styles/main.scss"
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import HomeView from "./views/home/HomeView";
 
 function App() {
     return (
-        <div className="App">
-            Hello world !!!
-        </div>
+        <Router>
+            <Routes>
+                <Route path={"/"} element={<HomeView/>}/>
+            </Routes>
+        </Router>
     );
 }
 

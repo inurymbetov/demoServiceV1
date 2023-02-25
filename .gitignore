@@ -20,6 +20,11 @@ target/
 *.ipr
 
 ### NetBeans ###
+/demo-ui/node_modules
+/demo-ui/.pnp
+/demo-ui/.pnp.js
+/demo-ui//build
+/demo-ui//coverage
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -31,3 +36,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/demo-ui/.DS_Store
+/demo-ui/.env.local
+/demo-ui/.env.development.local
+/demo-ui/.env.test.local
+/demo-ui/.env.production.local
