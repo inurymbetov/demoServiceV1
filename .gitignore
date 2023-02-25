@@ -23,8 +23,9 @@ target/
 /demo-ui/node_modules
 /demo-ui/.pnp
 /demo-ui/.pnp.js
-/demo-ui//build
-/demo-ui//coverage
+/demo-ui/build/
+/demo-ui/public/
+/demo-ui/coverage
 /nbproject/private/
 /nbbuild/
 /dist/
