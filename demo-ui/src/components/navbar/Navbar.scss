@@ -1,0 +1,13 @@
+.demo-navbar {
+  display: flex;
+  justify-content: center;
+  background: #333;
+  .nav-link {
+    color: #fff;
+    font-weight: bolder;
+    text-transform: uppercase;
+  }
+  .active {
+    color: #a7a7a7!important;
+  }
+}
