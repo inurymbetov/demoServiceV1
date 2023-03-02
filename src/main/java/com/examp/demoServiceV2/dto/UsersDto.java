@@ -1,10 +1,13 @@
 package com.examp.demoServiceV2.dto;
 
+import com.examp.demoServiceV2.entity.users.Role;
 import com.examp.demoServiceV2.entity.users.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -12,11 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersDto {
 
-    private long id;
-    private String uid;
-    private String fullName;
-    private String email;
-    private String password;
+    private long            id;
+    private String          uid;
+    private String          fullName;
+    private String          email;
+    private String          password;
+    private List<Role>      roles;
 
     public static UsersDto toDto(Users users) {
         return UsersDto.builder()

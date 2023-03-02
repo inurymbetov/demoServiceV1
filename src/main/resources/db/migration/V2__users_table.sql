@@ -1,4 +1,4 @@
-insert into users (uid, firstName, lastName, email, active) values ('68e0cfe4-9ebf-4125-90f0-09c571b88a2c', 'Broderic', 'Giacopello', 'bgiacopello0@meetup.com', false);
+insert into users (uid, firstName, lastName, email, password, active) values ('68e0cfe4-9ebf-4125-90f0-09c571b88a2c', 'Broderic', 'Giacopello', 'koro@mail.ru', '$2a$12$crmHqCVw1cb7J7faFT4eSeDLXPqC2sSXawEsOl34lLLgi2kk6Ge7a', true);
 insert into users (uid, firstName, lastName, email, active) values ('c0a67dc5-00dd-4301-8944-02ecde9e5d29', 'Thornie', 'Clapton', 'tclapton1@amazon.de', true);
 insert into users (uid, firstName, lastName, email, active) values ('a6bfc3c2-5f36-4094-831b-b31da464d884', 'Gasparo', 'Piele', 'gpiele2@liveinternet.ru', true);
 insert into users (uid, firstName, lastName, email, active) values ('1ad1e26e-8a11-4ad1-b49c-1cc1e9083a82', 'Jameson', 'Quaife', 'jquaife3@biblegateway.com', false);
@@ -48,3 +48,10 @@ insert into users (uid, firstName, lastName, email, active) values ('9f4b06d7-1b
 insert into users (uid, firstName, lastName, email, active) values ('ecd25a0c-df8e-4bc8-93ae-0313e527d1b9', 'Wylma', 'Matthesius', 'wmatthesius1b@wiley.com', true);
 insert into users (uid, firstName, lastName, email, active) values ('57c0f961-bc23-48d3-8359-4e0120b911bf', 'Marlo', 'Edgeson', 'medgeson1c@paginegialle.it', true);
 insert into users (uid, firstName, lastName, email, active) values ('043b00f1-60d7-4319-a4a0-72a79aaba5e2', 'Jenilee', 'Gouth', 'jgouth1d@istockphoto.com', false);
+
+
+insert into roles (id, role_name) values (1, 'USER');
+insert into roles (id, role_name) values (2, 'ADMIN');
+insert into roles (id, role_name) values (3, 'REPORTER');
+
+insert into users_roles (id, users_id, roles_id) values (default, 1, 2)

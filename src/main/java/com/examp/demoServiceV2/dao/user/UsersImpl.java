@@ -1,6 +1,7 @@
 package com.examp.demoServiceV2.dao.user;
 
 import com.examp.demoServiceV2.dao.Dao;
+import com.examp.demoServiceV2.entity.users.Role;
 import com.examp.demoServiceV2.entity.users.Users;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
@@ -9,8 +10,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +36,11 @@ public class UsersImpl extends Dao<Users> {
                         field(Users.ID).eq(id).and(field(Users.ACTIVE).eq(true))
                 ).getSQL(ParamType.INLINED);
         return jdbcTemplate.queryForObject(sql, this::mapperResult);
+    }
+
+    public List<String> getRolesByUser(long id) {
+        final String sql = String.format("select r.role_name from users_roles ur join users u on ur.users_id = u.id join roles r on r.id = ur.roles_id where ur.users_id = %s", id);
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString(1));
     }
 
     public Optional<Users> getByEmail(String email, boolean active) {

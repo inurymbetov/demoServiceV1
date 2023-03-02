@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,6 +21,7 @@ public class Users {
     private String          email;
     private String          password;
     private boolean         active;
+    private List<Role>      role;
 
     public static final String TABLE =              "users";
     public static final String ID =                 "id";
